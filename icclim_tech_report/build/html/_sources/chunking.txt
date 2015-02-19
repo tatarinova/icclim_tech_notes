@@ -6,17 +6,17 @@ In case of OPeNDAP datasets, if data request exceeds the fixed by OPeNDAP/THREDD
 Chunksize is dynamicly adapted to the data transfer max size. Data cutting is realized along the time axis (spatial chunking):
 
 .. figure:: /images/chunking_1.png
-   :scale: 50%
+   :scale: 90%
    
 The figure bellow shows how ICCLIM estimates an optimal tile dimention:
 
 .. figure:: /images/chunking_2.png
-   :scale: 50%
+   :scale: 90%
    
 *OCGIS_tile.py* provides a function which returns the start and end indices vertically and horizontally for each chunk:
 
 .. figure:: /images/chunking_3.png
-   :scale: 50%
+   :scale: 90%
    
 The transfer and processing chunks will be in the following order:
 

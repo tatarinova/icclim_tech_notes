@@ -8,7 +8,7 @@ The output is a dictionary with keys as (temporal_aggregation_mode, year) and va
 Bellow is an example with the "JJA" season temporal aggregation:
 
 .. figure:: /images/temp_aggregation.png
-   :scale: 50%
+   :scale: 90%
    
 In the following, looping on keys, corresponding values_arr is passed to indices computing routines (**calc_indice.py** and **calc_indice_perc.py**).
 All centroid time steps are groupped then in a time steps vector to be written in output netCDF file as values of "time" variable.
