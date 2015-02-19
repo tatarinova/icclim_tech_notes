@@ -51,26 +51,26 @@
             
   <div class="section" id="python-optimization-with-c">
 <span id="icclim-ocgis"></span><h1>Python optimization with C<a class="headerlink" href="#python-optimization-with-c" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="intro">
+<h2>Intro<a class="headerlink" href="#intro" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="http://kortis.to/radix/python_ext/">http://kortis.to/radix/python_ext/</a></p>
-<p>ICCLIM modules <strong>calc_indice.py</strong> and <strong>calc_indice_perc.py</strong> contains elementary routines manipulating 3D array.</p>
-<p>To process 3D arrays:</p>
+<p>ICCLIM modules <strong>calc_indice.py</strong> and <strong>calc_indice_perc.py</strong> contain basic routines for manipulating 3D arrays.</p>
+<p>There are 2 approaches to process 3D arrays:</p>
 <blockquote>
 <div><ul>
-<li><dl class="first docutils">
-<dt>We use existing routines of <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/">NumPy</a> library (compute min/max/... along time axis, i.e. for each pixel =&gt; we have then 2D array in output).</dt>
-<dd><p class="first">Example: indice TXn (Minimum value of daily max temperature).</p>
-<div class="last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">TXn</span> <span class="o">=</span> <span class="n">tasmax_array</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<li><p class="first">Using existing routines from the <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/">NumPy</a> library (min/max/... along time demension gives 2D ouput array).</p>
+<blockquote>
+<div><p>For example, to compute the indice TXn (<em>minimum value of daily maximum temperature</em>):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">TXn</span> <span class="o">=</span> <span class="n">tasmax_array</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
-</dd>
-</dl>
+</div></blockquote>
 </li>
-<li><dl class="first docutils">
-<dt>We code ourselves.</dt>
-<dd><p class="first">Example: indice CSU (Maximum number of consecutive days where max temperature &gt; 25 degrees Celsius).</p>
-<div class="highlight-sh"><div class="highlight"><pre>Pseudocode:
+<li><p class="first">Creating new routines for computing, as for example <em>maximum number of consecutive days where maximum temperature &gt; 25 degrees Celsius</em> (CSU) given below.</p>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre>Pseudocode:
 
-    input: 3D tasmax_array <span class="o">(</span>A 3D array is a <span class="s2">&quot;cube&quot;</span> with depth as <span class="nb">time </span>axis.<span class="o">)</span>
+    input: 3D tasmax_array <span class="o">(</span>A 3D array is a <span class="s2">&quot;cube&quot;</span> with depth as <span class="nb">time </span>dimension.<span class="o">)</span>
     output: 2D CSU_array
 
     we reserve memory <span class="k">for</span> CSU output array
@@ -81,18 +81,17 @@
 <span class="nb">            </span>we write the result to the pixel <span class="o">[</span>i,j<span class="o">]</span> of the CSU_array
 </pre></div>
 </div>
-<p class="last">Implementation of that in Python is not prefered: it is not performant in case of nested loops.
-It is better to implement nested loops routines in C, and then call them from Python program.</p>
-</dd>
-</dl>
+<p>Its implementation in Python is not performant for nested loops. Thus, for that purpose it is recommended to create routines in C that can be called in Python.</p>
+</div></blockquote>
 </li>
 </ul>
 </div></blockquote>
+</div>
 <div class="section" id="how-to-call-c-from-python">
 <h2>How to call C from Python<a class="headerlink" href="#how-to-call-c-from-python" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">In ICCLIM all C routins are stored in <strong>libC.c</strong>.</p>
+<p class="last">In ICCLIM, all C routins are stored in <strong>libC.c</strong>.</p>
 </div>
 <ol class="arabic">
 <li><p class="first">Write a C function you want to use in the libC.c.</p>
@@ -123,9 +122,9 @@ It is better to implement nested loops routines in C, and then call them from Py
 
 <span class="n">my_function</span> <span class="o">=</span> <span class="n">libraryC</span><span class="o">.</span><span class="n">my_function_from_LibC</span>
 
-<span class="n">my_function</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span> <span class="n">of</span> <span class="n">ctypes</span> <span class="n">argument</span> <span class="n">types</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">same</span> <span class="n">order</span> <span class="k">as</span> <span class="ow">in</span> <span class="n">my_function_from_LibC</span><span class="p">]</span>
+<span class="n">my_function</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span> <span class="o">&lt;</span><span class="nb">list</span> <span class="n">of</span> <span class="n">ctypes</span> <span class="n">argument</span> <span class="n">types</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">same</span> <span class="n">order</span> <span class="k">as</span> <span class="ow">in</span> <span class="n">my_function_from_LibC</span><span class="o">&gt;</span> <span class="p">]</span>
 
-<span class="n">my_function</span><span class="p">(</span><span class="n">corrsponding</span> <span class="n">arguments</span> <span class="n">separated</span> <span class="n">by</span> <span class="n">a</span> <span class="n">comma</span><span class="p">)</span>
+<span class="n">my_function</span><span class="p">(</span> <span class="o">&lt;</span><span class="n">corrsponding</span> <span class="n">arguments</span> <span class="n">separated</span> <span class="n">by</span> <span class="n">a</span> <span class="n">comma</span><span class="o">&gt;</span> <span class="p">)</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -133,7 +132,7 @@ It is better to implement nested loops routines in C, and then call them from Py
 </ol>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Ctypes documentation: <a href="#id1"><span class="problematic" id="id2">`https://docs.python.org/2/library/ctypes.html&gt;`_</span></a></p>
+<p class="last">Ctypes documentation: <a class="reference external" href="https://docs.python.org/2/library/ctypes.html">https://docs.python.org/2/library/ctypes.html</a></p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -141,7 +140,7 @@ It is better to implement nested loops routines in C, and then call them from Py
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">See examples in <strong>calc_indice.py</strong> and <strong>calc_indice_perc.py</strong> files.</p>
+<p class="last">See examples in <strong>calc_indice.py</strong> and <strong>calc_indice_perc.py</strong>.</p>
 </div>
 </div>
 </div>
@@ -155,6 +154,7 @@ It is better to implement nested loops routines in C, and then call them from Py
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Python optimization with C</a><ul>
+<li><a class="reference internal" href="#intro">Intro</a></li>
 <li><a class="reference internal" href="#how-to-call-c-from-python">How to call C from Python</a></li>
 </ul>
 </li>

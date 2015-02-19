@@ -51,8 +51,8 @@
             
   <div class="section" id="chunking">
 <h1>Chunking<a class="headerlink" href="#chunking" title="Permalink to this headline">¶</a></h1>
-<p>In case of OPeNDAP datasets, if data request exceeds the fixed by OPeNDAP/THREDDS transfer limit, ICCLIM will cut data into chunks to transfer and process them chunk-by-chunk.
-Chunksize is dynamicly adapted to the data transfer max size. Data cutting is realized along the time axis (spatial chunking):</p>
+<p>In case if requested datasets exceed OPeNDAP/THREDDS transfer limit, ICCLIM applies chunking method to transfer and process.
+Chunksize is dynamicly adapted to the data maximum transfer size. Data cutting is realized along the time dimension (spatial chunking):</p>
 <div class="figure">
 <a class="reference internal image-reference" href="_images/chunking_1.png"><img alt="_images/chunking_1.png" src="_images/chunking_1.png" /></a>
 </div>

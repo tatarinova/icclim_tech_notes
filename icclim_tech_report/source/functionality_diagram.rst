@@ -1,4 +1,4 @@
-Functionality diagram
+Functional diagram
 ======================
 
 .. figure:: /images/functionality_diagram.png

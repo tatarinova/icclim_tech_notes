@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Temporal aggregation &mdash; ICCLIM  documentation</title>
+    <title>Add a new indice or indicator &mdash; ICCLIM  documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -24,8 +24,8 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="ICCLIM  documentation" href="index.html" />
-    <link rel="next" title="Functionality diagram" href="functionality_diagram.html" />
-    <link rel="prev" title="Chunking" href="chunking.html" /> 
+    <link rel="next" title="Update" href="update.html" />
+    <link rel="prev" title="Functionality diagram" href="functionality_diagram.html" /> 
   </head>
   <body>
     <div class="related">
@@ -35,10 +35,10 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="functionality_diagram.html" title="Functionality diagram"
+          <a href="update.html" title="Update"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="chunking.html" title="Chunking"
+          <a href="functionality_diagram.html" title="Functionality diagram"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">ICCLIM  documentation</a> &raquo;</li> 
       </ul>
@@ -49,18 +49,25 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="temporal-aggregation">
-<h1>Temporal aggregation<a class="headerlink" href="#temporal-aggregation" title="Permalink to this headline">¶</a></h1>
-<p>Each indice can be calculated at annual, winter half-year, summer half-year, winter, spring, summer, autumn and monthly frequency.
-The get_dict_temporal_slices() function from time_subset.py allows data extraction into slices depending on selected temporal aggregation.
-The output is a dictionary with keys as (temporal_aggregation_mode, year) and values as a tuple with 4 elements: (dt_centroid, dt_bounds, dt_arr, values_arr).
-Bellow is an example for the &#8220;JJA&#8221; season temporal aggregation:</p>
-<div class="figure">
-<a class="reference internal image-reference" href="_images/temp_aggregation.png"><img alt="_images/temp_aggregation.png" src="_images/temp_aggregation.png" /></a>
-</div>
-<p>In the following, looping on keys, corresponding values_arr is passed to indices computing routines (<strong>calc_indice.py</strong> and <strong>calc_indice_perc.py</strong>).
-All centroid time steps are groupped then into time steps vector to be written in output netCDF file as values of &#8220;time&#8221; variable.
-The time bounds are also groupped in 2D array to define values of &#8220;time_bounds&#8221; variable.</p>
+  <div class="section" id="add-a-new-indice-or-indicator">
+<h1>Add a new indice or indicator<a class="headerlink" href="#add-a-new-indice-or-indicator" title="Permalink to this headline">¶</a></h1>
+<p>Example: indicator A</p>
+<ol class="arabic">
+<li><p class="first">Create an elemenatry routine for computing the indicator A.</p>
+</li>
+<li><p class="first">It is better to store it in a new module <a href="#id1"><span class="problematic" id="id2">**</span></a><a href="#id3"><span class="problematic" id="id4">*</span></a>.py.</p>
+</li>
+<li><p class="first">Modify icclim.indice() function or create a new one (icclim.indicator() for example).</p>
+</li>
+<li><p class="first">Metadata in output netCDF</p>
+<blockquote>
+<div><ul class="simple">
+<li>Define &#8220;longname&#8221; and &#8220;units&#8221; attributes of the indicator A in <strong>set_longname_units.py</strong>.</li>
+<li>Define &#8220;title&#8221; attribute (and other necessary attributes) in <strong>set_globattr.py</strong>.</li>
+</ul>
+</div></blockquote>
+</li>
+</ol>
 </div>
 
 
@@ -70,14 +77,14 @@ The time bounds are also groupped in 2D array to define values of &#8220;time_bo
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
-  <p class="topless"><a href="chunking.html"
-                        title="previous chapter">Chunking</a></p>
-  <h4>Next topic</h4>
   <p class="topless"><a href="functionality_diagram.html"
-                        title="next chapter">Functionality diagram</a></p>
+                        title="previous chapter">Functionality diagram</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="update.html"
+                        title="next chapter">Update</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="_sources/temporal_aggregation.txt"
+    <li><a href="_sources/add_new_indice_or_indicator.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">
@@ -104,10 +111,10 @@ The time bounds are also groupped in 2D array to define values of &#8220;time_bo
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="functionality_diagram.html" title="Functionality diagram"
+          <a href="update.html" title="Update"
              >next</a> |</li>
         <li class="right" >
-          <a href="chunking.html" title="Chunking"
+          <a href="functionality_diagram.html" title="Functionality diagram"
              >previous</a> |</li>
         <li><a href="index.html">ICCLIM  documentation</a> &raquo;</li> 
       </ul>

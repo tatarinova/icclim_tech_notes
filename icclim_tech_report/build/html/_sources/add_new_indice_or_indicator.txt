@@ -1,0 +1,21 @@
+Add a new indice or indicator
+=================================
+
+Example: indicator A
+
+1. Create an elemenatry routine for computing the indicator A.
+
+2. It is better to store it in a new module ***.py.
+
+3. Modify icclim.indice() function or create a new one (icclim.indicator() for example).
+
+4. Metadata in output netCDF
+
+    - Define "longname" and "units" attributes of the indicator A in **set_longname_units.py**.
+    
+    - Define "title" attribute (and other necessary attributes) in **set_globattr.py**.
+
+
+
+
+

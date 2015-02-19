@@ -2,8 +2,12 @@ Chunking
 ============
 
 
-In case of OPeNDAP datasets, if data request exceeds the fixed by OPeNDAP/THREDDS transfer limit, ICCLIM will cut data into chunks to transfer and process them chunk-by-chunk.
-Chunksize is dynamicly adapted to the data transfer max size. Data cutting is realized along the time axis (spatial chunking):
+
+
+
+
+In case if requested datasets exceed OPeNDAP/THREDDS transfer limit, ICCLIM applies chunking method to transfer and process.
+Chunksize is dynamicly adapted to the data maximum transfer size. Data cutting is realized along the time dimension (spatial chunking):
 
 .. figure:: /images/chunking_1.png
    :scale: 90%
