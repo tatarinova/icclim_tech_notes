@@ -18,7 +18,7 @@ Currently, the 49 climate indices as defined by `European Climate Assessment & D
 	
 Detailed description of each indice is available at http://eca.knmi.nl/documents/atbd.pdf.
 
-Initialy ICCLIM was designed for online computing of climate indices throuh the `climate4impact portal <http://climate4impact.eu>`_. 
+Initialy ICCLIM was designed for online computing of climate indices through the `climate4impact portal <http://climate4impact.eu>`_. 
 In spite of existence of other packages able to compute climate indices (`CDO <https://code.zmaw.de/projects/cdo>`_, `R package <http://etccdi.pacificclimate.org/software.shtml>`_ ),
 it was decided to develop a new software in Python.
 Python language was first of all choosen to interface with `PyWPS <http://pywps.wald.intevation.org/>`_: Python implementation of Web Proccessing Service

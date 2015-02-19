@@ -58,7 +58,7 @@
 <p>There are 2 approaches to process 3D arrays:</p>
 <blockquote>
 <div><ul>
-<li><p class="first">Using existing routines from the <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/">NumPy</a> library (min/max/... along time demension gives 2D ouput array).</p>
+<li><p class="first">Using existing routines from the <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/">NumPy</a> library (min/max/... along time dimension gives 2D ouput array).</p>
 <blockquote>
 <div><p>For example, to compute the indice TXn (<em>minimum value of daily maximum temperature</em>):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">TXn</span> <span class="o">=</span> <span class="n">tasmax_array</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -81,7 +81,7 @@
 <span class="nb">            </span>we write the result to the pixel <span class="o">[</span>i,j<span class="o">]</span> of the CSU_array
 </pre></div>
 </div>
-<p>Its implementation in Python is not performant for nested loops. Thus, for that purpose it is recommended to create routines in C that can be called in Python.</p>
+<p>It should be noted here that use of nested loops in Python decrease significantly its performance. Thus, for that purpose it is recommended to create routines in C that can be called in Python.</p>
 </div></blockquote>
 </li>
 </ul>

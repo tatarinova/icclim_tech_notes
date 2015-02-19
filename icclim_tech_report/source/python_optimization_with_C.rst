@@ -13,7 +13,7 @@ ICCLIM modules **calc_indice.py** and **calc_indice_perc.py** contain basic rout
 
 There are 2 approaches to process 3D arrays:
 
-    - Using existing routines from the `NumPy <http://docs.scipy.org/doc/numpy/reference/>`_ library (min/max/... along time demension gives 2D ouput array).
+    - Using existing routines from the `NumPy <http://docs.scipy.org/doc/numpy/reference/>`_ library (min/max/... along time dimension gives 2D ouput array).
     
         For example, to compute the indice TXn (*minimum value of daily maximum temperature*):
             
@@ -35,7 +35,7 @@ There are 2 approaches to process 3D arrays:
                         we compute CSU for the current pixel [i,j] of tasmax_array along axis time
                         we write the result to the pixel [i,j] of the CSU_array
           
-        Its implementation in Python is not performant for nested loops. Thus, for that purpose it is recommended to create routines in C that can be called in Python.
+        It should be noted here that use of nested loops in Python decrease significantly its performance. Thus, for that purpose it is recommended to create routines in C that can be called in Python.
 
 
 

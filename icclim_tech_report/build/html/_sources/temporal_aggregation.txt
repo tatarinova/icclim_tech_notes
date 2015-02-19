@@ -5,7 +5,7 @@ Temporal aggregation
 Each indice can be calculated at annual, winter half-year, summer half-year, winter, spring, summer, autumn and monthly frequency.
 The get_dict_temporal_slices() function from time_subset.py allows data extraction into slices depending on selected temporal aggregation.
 The output is a dictionary with keys as (temporal_aggregation_mode, year) and values as a tuple with 4 elements: (dt_centroid, dt_bounds, dt_arr, values_arr).
-Bellow is an example for the "JJA" season temporal aggregation:
+Below is an example for the "JJA" season temporal aggregation:
 
 .. figure:: /images/temp_aggregation.png
    :scale: 90%
