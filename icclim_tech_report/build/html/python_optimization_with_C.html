@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Python optimization with C &mdash; ICCLIM 3.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="ICCLIM 3.0 documentation" href="index.html" />
+    <link rel="next" title="Chunking" href="chunking.html" />
+    <link rel="prev" title="Files tree" href="files_tree.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="chunking.html" title="Chunking"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="files_tree.html" title="Files tree"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">ICCLIM 3.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="python-optimization-with-c">
+<span id="icclim-ocgis"></span><h1>Python optimization with C<a class="headerlink" href="#python-optimization-with-c" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="http://kortis.to/radix/python_ext/">http://kortis.to/radix/python_ext/</a></p>
+<p>ICCLIM modules <strong>calc_indice.py</strong> and <strong>calc_indice_perc.py</strong> contains elementary routines manipulating 3D array.</p>
+<p>To process 3D arrays:</p>
+<blockquote>
+<div><ul>
+<li><dl class="first docutils">
+<dt>We use existing routines of <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/">NumPy</a> library (compute min/max/... along time axis, i.e. for each pixel =&gt; we have then 2D array in output).</dt>
+<dd><p class="first">Example: indice TXn (Minimum value of daily max temperature).</p>
+<div class="last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">TXn</span> <span class="o">=</span> <span class="n">tasmax_array</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>We code ourselves.</dt>
+<dd><p class="first">Example: indice CSU (Maximum number of consecutive days where max temperature &gt; 25 degrees Celsius).</p>
+<div class="highlight-sh"><div class="highlight"><pre>Pseudocode:
+
+    input: 3D tasmax_array <span class="o">(</span>A 3D array is a <span class="s2">&quot;cube&quot;</span> with depth as <span class="nb">time </span>axis.<span class="o">)</span>
+    output: 2D CSU_array
+
+    we reserve memory <span class="k">for </span>CSU output array
+
+    <span class="k">for </span>i in lines:
+        <span class="k">for </span>j in columns:
+            we compute CSU <span class="k">for </span>the current pixel <span class="o">[</span>i,j<span class="o">]</span> of tasmax_array along axis <span class="nb">time</span>
+<span class="nb">            </span>we write the result to the pixel <span class="o">[</span>i,j<span class="o">]</span> of the CSU_array
+</pre></div>
+</div>
+<p class="last">Implementation of that in Python is not prefered: it is not performant in case of nested loops.
+It is better to implement nested loops routines in C, and then call them from Python program.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+<div class="section" id="how-to-call-c-from-python">
+<h2>How to call C from Python<a class="headerlink" href="#how-to-call-c-from-python" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In ICCLIM all C routins are stored in <strong>libC.c</strong>.</p>
+</div>
+<ol class="arabic">
+<li><p class="first">Write a C function you want to use in the libC.c.</p>
+</li>
+<li><p class="first">Compile libC.c:</p>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>gcc -fPIC -g -c -Wall libC.c
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Create a shared object (.so file):</p>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>gcc -shared -o libC.so libC.o
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">In a Python program where you want to call C (if both files are in the same directory):</p>
+<blockquote>
+<div><div class="highlight-py"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">ctypes</span>
+<span class="kn">from</span> <span class="nn">numpy.ctypeslib</span> <span class="kn">import</span> <span class="n">ndpointer</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">my_rep</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">__file__</span><span class="p">))</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span>
+
+<span class="n">libraryC</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">cdll</span><span class="o">.</span><span class="n">LoadLibrary</span><span class="p">(</span><span class="n">my_rep</span><span class="o">+</span><span class="s">&#39;libC.so&#39;</span><span class="p">)</span>
+
+<span class="n">my_function</span> <span class="o">=</span> <span class="n">libraryC</span><span class="o">.</span><span class="n">my_function_from_LibC</span>
+
+<span class="n">my_function</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span> <span class="n">of</span> <span class="n">ctypes</span> <span class="n">argument</span> <span class="n">types</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">same</span> <span class="n">order</span> <span class="k">as</span> <span class="ow">in</span> <span class="n">my_function_from_LibC</span><span class="p">]</span>
+
+<span class="n">my_function</span><span class="p">(</span><span class="n">corrsponding</span> <span class="n">arguments</span> <span class="n">separated</span> <span class="n">by</span> <span class="n">a</span> <span class="n">comma</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Ctypes documentation: <a href="#id1"><span class="problematic" id="id2">`https://docs.python.org/2/library/ctypes.html&gt;`_</span></a></p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Corresponding ctypes types: int &#8212;&gt; ctypes.c_int; double* &#8212;&gt; ndpointer(ctypes.c_double); etc</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">See examples in <strong>calc_indice.py</strong> and <strong>calc_indice_perc.py</strong> files.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Python optimization with C</a><ul>
+<li><a class="reference internal" href="#how-to-call-c-from-python">How to call C from Python</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="files_tree.html"
+                        title="previous chapter">Files tree</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="chunking.html"
+                        title="next chapter">Chunking</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/python_optimization_with_C.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="chunking.html" title="Chunking"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="files_tree.html" title="Files tree"
+             >previous</a> |</li>
+        <li><a href="index.html">ICCLIM 3.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, CERFACS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b3.
+    </div>
+  </body>
+</html>

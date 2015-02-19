@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Files tree &mdash; ICCLIM 3.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="ICCLIM 3.0 documentation" href="index.html" />
+    <link rel="prev" title="Intro" href="intro.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="Intro"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">ICCLIM 3.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="files-tree">
+<h1>Files tree<a class="headerlink" href="#files-tree" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-sh"><div class="highlight"><pre>- icclim/
+    - LICENCE
+    - NOTICE
+    - MANIFEST.in
+    - README.md
+    - setup.py
+    - .git/         - hidden
+    - .gitignore    - hidden
+    - ECA_indices_description.txt                   <span class="o">(</span>link to the ECA&amp;D indices documentation<span class="o">)</span>
+    - ICCLIM_files_tree.txt                         <span class="o">(</span>files tree<span class="o">)</span>
+
+    - icclim/
+        - __init__.py
+
+        - libC.c                                    <span class="o">(</span>routines written in C<span class="o">)</span>
+
+        - time_subset.py                            <span class="o">(</span><span class="k">function for </span>temporal aggregation<span class="o">)</span>
+        - icclim.py                                 <span class="o">(</span>the principal module containing the principal <span class="k">function for </span>indice computing<span class="o">)</span>
+        - percentile_dict.py                        <span class="o">(</span><span class="k">function for </span>percentiles computing<span class="o">)</span>
+        - calc_indice.py                            <span class="o">(</span>elementary routines <span class="k">for </span>indices computing<span class="o">)</span>
+        - calc_indice_perc.py                       <span class="o">(</span>elementary routines <span class="k">for </span>percentile-based indices computing<span class="o">)</span>
+        - set_globattr.py                           <span class="o">(</span>functions <span class="k">for </span>setting global attributes in output netCDF file<span class="o">)</span>
+        - set_longname_units.py                     <span class="o">(</span>functions <span class="k">for </span>setting <span class="s2">&quot;longname&quot;</span> and <span class="s2">&quot;units&quot;</span> attributes of indice variable in output netCDF file<span class="o">)</span>
+        - set_longname_units_custom_indices.py      <span class="o">(</span>functions <span class="k">for </span>setting <span class="s2">&quot;longname&quot;</span> and <span class="s2">&quot;units&quot;</span> attributes of custom indice variable in output netCDF file, actually <span class="k">for </span>the indices SU, CSU and TR with user selected threshold<span class="o">)</span>
+
+        - util/
+            - __init__.py
+
+            - util_nc.py                            <span class="o">(</span>functions manupilating ...<span class="o">)</span>
+            - util_dt.py                            <span class="o">(</span>functions manipulating <span class="nb">time </span>steps vector<span class="o">)</span>
+            - files_order.py                        <span class="o">(</span>functions to make input files list in correct order<span class="o">)</span>
+            - callback.py                           <span class="o">(</span>default callback functions useful <span class="k">for </span>progress bar printiong<span class="o">)</span>
+            - arr_size.py
+            - OCGIS_tile.py                         <span class="o">(</span>useful <span class="k">for </span>spatial chunking<span class="o">)</span>
+            - spatial_stat.py                       <span class="o">(</span>spatial statistics<span class="o">)</span>
+            - anomalies.py                          <span class="o">(</span>anomalies computing<span class="o">)</span>
+            - regrid.py                             <span class="o">(</span>functions <span class="k">for </span>simple regridding, rectangular <span class="s2">&quot;lat/lon&quot;</span> grid<span class="o">)</span>
+
+        - icclim_doc/                               <span class="o">(</span>documentation<span class="o">)</span>
+            - <span class="nb">source</span>/
+                - images/                           <span class="o">(</span>folder to store images used in the documentation<span class="o">)</span>
+                - _static/                          <span class="o">(</span>?<span class="o">)</span>
+
+                - conf.py
+                - index.rst
+                - intro.rst
+                - important_to_know.rst
+                - installation.rst
+                - python_api.rst
+                - output_metadata.rst
+                - contacts.rst
+                - icclim_ocgis.rst
+            - build/
+                - doctrees/                         <span class="o">(</span>?<span class="o">)</span>
+                - html/                             <span class="o">(</span>built HTML files<span class="o">)</span>
+            - Makefile
+
+
+        - script_examples/
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="intro.html"
+                        title="previous chapter">Intro</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/files_tree.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="Intro"
+             >previous</a> |</li>
+        <li><a href="index.html">ICCLIM 3.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, CERFACS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b3.
+    </div>
+  </body>
+</html>

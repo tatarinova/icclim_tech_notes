@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Intro &mdash; ICCLIM 3.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="ICCLIM 3.0 documentation" href="index.html" />
+    <link rel="prev" title="Technical report" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Technical report"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">ICCLIM 3.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="intro">
+<h1>Intro<a class="headerlink" href="#intro" title="Permalink to this headline">¶</a></h1>
+<p>ICCLIM is short of Indice Calculation CLIMate, a Python library provided routines for climate indices calculation.</p>
+<p>Actually, ICCLIM computes 49 climate indices defined by European Climate Assessment &amp; Dataset(ECA&amp;D) based on temperature and precipitation variables:</p>
+<blockquote>
+<div><ul class="simple">
+<li>11 cold indices (GD4, CFD, FD, HD17, ID, CSDI, TG10p, TN10p, TX10p, TXn, TNn)</li>
+<li>1 draught indice (CDD)</li>
+<li>9 heat indices (SU, TR, WSDI, TG90p, TN90p, TX90p, TXx, TNx, CSU)</li>
+<li>14 rain indices (RR, RR1, SDII, CWD, R10mm, R20mm, RX1day, RX5day, R75p, R75pTOT, R95p, R95pTOT, R99p, R99pTOT)</li>
+<li>4 snow indices (SD, SD1, SD5cm, SD50cm)</li>
+<li>6 temperature indices (TG, TN, TX, DTR, ETR, vDTR)</li>
+<li>4 compound indices (CD, CW, WD, WW)</li>
+</ul>
+</div></blockquote>
+<p>Detailed description of each indice is available at <a class="reference external" href="http://eca.knmi.nl/documents/atbd.pdf">http://eca.knmi.nl/documents/atbd.pdf</a>.</p>
+<p>Initialy ICCLIM was designed for online climate indices computing on the climate4impact portal(LINK).
+In spite of existence of other packages able to compute climate indices (<a class="reference external" href="https://code.zmaw.de/projects/cdo">CDO</a>, <a class="reference external" href="http://etccdi.pacificclimate.org/software.shtml">R package</a> ),
+it was decided to develop a new software in Python.
+Python language was first of all choosen to interface with <a class="reference external" href="http://pywps.wald.intevation.org/">PyWPS</a>: Python implementation of Web Proccessing Service
+(WPS) Standard.
+Another reason was to interface eventially with the <a class="reference external" href="https://earthsystemcog.org/projects/openclimategis/">OpenClimateGIS</a>.</p>
+<p>The documentation is available at <a class="reference external" href="http://icclim.readthedocs.org">http://icclim.readthedocs.org</a>.</p>
+<p>The developer repository is found here: <a class="reference external" href="https://github.com/tatarinova/icclim">https://github.com/tatarinova/icclim</a></p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Technical report</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/intro.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Technical report"
+             >previous</a> |</li>
+        <li><a href="index.html">ICCLIM 3.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, CERFACS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b3.
+    </div>
+  </body>
+</html>
