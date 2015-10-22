@@ -207,7 +207,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'ICCLIM.tex', u'ICCLIM Technical report',
+  ('index', 'ICCLIM.tex', u'ICCLIM notes and diagrams',
    u'CERFACS', 'manual'),
 ]
 
@@ -237,7 +237,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'icclim', u'ICCLIM Technical report',
+    ('index', 'icclim', u'ICCLIM notes and diagrams',
      [u'CERFACS'], 1)
 ]
 
@@ -251,7 +251,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'ICCLIM', u'ICCLIM Technical report',
+  ('index', 'ICCLIM', u'ICCLIM notes and diagrams',
    u'CERFACS', 'ICCLIM', 'One line description of project.',
    'Miscellaneous'),
 ]
